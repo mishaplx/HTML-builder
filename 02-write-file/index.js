@@ -9,6 +9,7 @@ let _input = ''
 console.log("Hello, please enter text");
 rl.on("line", (input) => {
     if (input == 'exit'){
+      console.log('good buy');
         process.exit()
     }
   _input += input + '\n';
