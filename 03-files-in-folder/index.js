@@ -3,6 +3,18 @@ const fs = require('fs')
     if(err){
         console.log(err);
     }
-    console.log(files);
+    for (let i = 0; i < files.length; i++) {
+        fs.stat(__dirname + `/secret-folder/${files[i].name}`,(err, stat) =>{
+            if(err){
+                console.log(err);
+            }
+            if (!stat.isDirectory()){
+                console.log(`${files[i].name.slice(0,files[i].name.indexOf('.'))} - ${files[i].name.slice(files[i].name.indexOf('.') + 1, files[i].name.length)} - ${stat.size / 1000} - kb`);
+            }
+        })
+        
+    }
+    
 })
+
 
