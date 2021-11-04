@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require("path");
 
-fs.mkdir(__dirname + "/project-disk", (err) =>{
+fs.mkdir(__dirname + "/project-dist", (err) =>{
     
 })
 
@@ -51,12 +51,57 @@ compileFile();
 
 
 fs.readdir(path.join(__dirname, 'assets'), (err, nameFile)=>{
-    console.log(nameFile);
+    fs.mkdir(path.join(__dirname, 'project-dist', 'assets'), (err) =>{
+        console.log(err);
+        console.log('MKDIR ASSETS');
+    })
     for (let i = 0; i < nameFile.length; i++) {
-        fs.mkdir(path.join(__dirname, 'project-disk', nameFile[i]), (err) =>{
+        fs.mkdir(path.join(__dirname, 'project-dist', "assets", nameFile[i]), (err) =>{
             console.log(err);
+            console.log('MKDIR ASSETS FILE');
         })
-        
-        
     }
 })
+
+
+
+let dataComponent = ''
+let arrComponet = []
+fs.readdir(path.join(__dirname, 'components'),(err, fileComponent)=>{
+    console.log('############################');
+    console.log(fileComponent);
+    console.log('############################');
+    let html = ''
+    for (let i = 0; i < fileComponent.length; i++) {
+      let readStream =  fs.createReadStream(path.join(__dirname, 'components' ,fileComponent[i]))  
+      html += readStream.read()
+       console.log(html);
+    }
+})
+
+
+
+
+
+
+
+
+
+
+fs.rename(path.join(__dirname, 'template.html'),path.join(__dirname, 'project-dist','index.html'),(err)=>{if (err) console.log(err);})
+// fs.rename(path.join(__dirname, 'assets',nameFile[i]),path.join(__dirname, 'project-dist',nameFile[i]),()=>{
+//     if(err){
+//         console.log(err);
+//         console.log('файлы перемешееы');
+//     }
+// })
+
+// fs.copyFile(path.join(__dirname, 'project-dist', nameFile[i]), path.join(__dirname, 'project-dist',nameFile[i]),(err)=>{
+//     if (err){
+//         console.log(err);
+//     }
+// })
+
+
+
+
