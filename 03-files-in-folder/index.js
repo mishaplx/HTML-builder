@@ -9,7 +9,7 @@ const fs = require('fs')
                 console.log(err);
             }
             if (!stat.isDirectory()){
-                console.log(`${files[i].name.slice(0,files[i].name.indexOf('.'))} - ${files[i].name.slice(files[i].name.indexOf('.') + 1, files[i].name.length)} - ${stat.size / 1000} - kb`);
+                console.log(`${files[i].name.slice(0,files[i].name.indexOf('.'))} - ${files[i].name.slice(files[i].name.indexOf('.') + 1, files[i].name.length)} - ${Math.round(stat.size / 1024)} - kb`);
             }
         })
         
