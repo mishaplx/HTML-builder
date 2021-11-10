@@ -1,29 +1,45 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-fs.stat(path.join(__dirname, 'file-copy'), function(err) {
-    
-    if (!err) {
-        console.log("Директория есть, файлы скопированны");
+fs.stat(path.join(__dirname, "file-copy"), function (err) {
+  fs.readdir(
+    path.join(__dirname, "file-copy"),
+    { withFileTypes: true },
+    (err, files) => {
+      for (let i = 0; i < files.length; i++) {
+        fs.unlink(path.join(__dirname, "file-copy", files[i].name), (err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      }
     }
-    else if (err.code === 'ENOENT') {
-        fs.mkdir(path.join(__dirname, 'file-copy'), (err) => {
-            if (err)
-                console.log(err);
-               
-        })
-        console.log("Файлы скопированны");
-    }
+  );
+  if (!err) {
+    console.log("Директория есть, файлы скопированны");
+  } else if (err.code === "ENOENT") {
+    fs.mkdir(path.join(__dirname, "file-copy"), (err) => {
+      if (err) console.log(err);
+    });
+    console.log("Файлы скопированны");
+  }
 });
 
-
-fs.readdir(path.join(__dirname, 'files'), { withFileTypes: true }, (err, files) => {
+fs.readdir(
+  path.join(__dirname, "files"),
+  { withFileTypes: true },
+  (err, files) => {
     for (let i = 0; i < files.length; i++) {
-        fs.copyFile(path.join(__dirname, 'files', files[i].name), path.join(__dirname, 'file-copy', files[i].name), (err) => {
-            if (err) {
-                console.log(err);
-            }
-        }) 
+      fs.copyFile(
+        path.join(__dirname, "files", files[i].name),
+        path.join(__dirname, "file-copy", files[i].name),
+        (err) => {
+          if (err) {
+            console.log(err);
+          }
+        }
+      );
     }
-})
-
+  }
+);
+//есть ошибки но это работает
