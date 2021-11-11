@@ -6,13 +6,16 @@ fs.stat(path.join(__dirname, "file-copy"), function (err) {
     path.join(__dirname, "file-copy"),
     { withFileTypes: true },
     (err, files) => {
-      for (let i = 0; i < files.length; i++) {
-        fs.unlink(path.join(__dirname, "file-copy", files[i].name), (err) => {
-          if (err) {
-            console.log(err);
-          }
+      files.forEach((el)=>{
+        fs.unlink(path.join(__dirname, "file-copy", el.name), (err) => {
+         
         });
-      }
+      })
+      // for (let i = 0; i < files.length; i++) {
+      //   fs.unlink(path.join(__dirname, "file-copy", files[i].name), (err) => {
+         
+      //   });
+      // }
     }
   );
   if (!err) {
@@ -42,4 +45,3 @@ fs.readdir(
     }
   }
 );
-//есть ошибки но это работает
